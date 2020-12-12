@@ -93,7 +93,7 @@ export default {
       const project = this.projects[index]
       this.$store.dispatch('ProjectView', project.id)
       this.$store.dispatch('SetProject', project)
-      this.$store.dispatch('ToggleTheme', project.id === undefined ? 'dark' : 'light')
+      this.$store.dispatch('ToggleTheme', project.id === undefined ? 'dark' : 'dark')
       this.$message.success(`${this.$t('message.switch.to')} "${project.displaytext || project.name}"`)
       if (this.$route.name !== 'dashboard') {
         this.$router.push({ name: 'dashboard' })

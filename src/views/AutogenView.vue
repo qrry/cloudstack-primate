@@ -468,7 +468,7 @@ export default {
         if (!json || !json.listprojectsresponse || !json.listprojectsresponse.project) return
         const project = json.listprojectsresponse.project[0]
         this.$store.dispatch('SetProject', project)
-        this.$store.dispatch('ToggleTheme', project.id === undefined ? 'dark' : 'light')
+        this.$store.dispatch('ToggleTheme', project.id === undefined ? 'dark' : 'dark')
         this.$message.success(`${this.$t('message.switch.to')} "${project.name}"`)
         const query = Object.assign({}, this.$route.query)
         delete query.projectid
