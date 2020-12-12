@@ -96,7 +96,7 @@ export default {
     },
     resetToMainView () {
       this.$store.dispatch('SetProject', {})
-      this.$store.dispatch('ToggleTheme', 'light')
+      this.$store.dispatch('ToggleTheme', 'dark')
     }
   }
 }

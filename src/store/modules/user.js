@@ -76,7 +76,7 @@ const user = {
       state.cloudian = cloudian
     },
     RESET_THEME: (state) => {
-      Vue.ls.set(DEFAULT_THEME, 'light')
+      Vue.ls.set(DEFAULT_THEME, 'dark')
     },
     SET_ZONES: (state, zones) => {
       state.zones = zones
