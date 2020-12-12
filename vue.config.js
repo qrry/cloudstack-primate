@@ -141,8 +141,8 @@ const vueConfig = {
 
   pluginOptions: {
     i18n: {
-      locale: 'en',
-      fallbackLocale: 'en',
+      locale: 'zh_CN',
+      fallbackLocale: 'zh_CN',
       localeDir: 'locales',
       enableInSFC: true
     }

@@ -24,14 +24,14 @@
 </template>
 
 <script>
-import enUS from 'ant-design-vue/lib/locale-provider/en_US'
+import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 import { AppDeviceEnquire } from '@/utils/mixin'
 
 export default {
   mixins: [AppDeviceEnquire],
   data () {
     return {
-      locale: enUS,
+      locale: zhCN,
       configs: {}
     }
   },

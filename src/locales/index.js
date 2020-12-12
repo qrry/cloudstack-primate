@@ -34,8 +34,10 @@ function loadLocaleMessages () {
 Vue.use(VueI18n)
 
 export default new VueI18n({
-  locale: Vue.ls ? Vue.ls.get('LOCALE') || 'en' : 'en',
-  fallbackLocale: 'en',
+  // locale: Vue.ls ? Vue.ls.get('LOCALE') || 'en' : 'en',
+  locale: Vue.ls ? Vue.ls.get('LOCALE') || 'zh_CN' : 'zh_CN',
+  // fallbackLocale: 'en',
+  fallbackLocale: 'zh_CN',
   silentTranslationWarn: true,
   messages: loadLocaleMessages()
 })
