@@ -18,7 +18,7 @@
 <template>
   <div class="user-menu">
 
-    <translation-menu class="action"/>
+    <translation-menu class="action" style="display:none"/>
     <header-notice class="action"/>
     <a-dropdown>
       <span class="user-menu-dropdown action">

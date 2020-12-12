@@ -94,7 +94,7 @@ export default {
     }
   },
   mounted () {
-    this.language = Vue.ls.get('LOCALE') || 'en'
+    this.language = Vue.ls.get('LOCALE') || 'zh_CN'
     this.setLocale(this.language)
   },
   methods: {
@@ -121,6 +121,7 @@ export default {
 .translation-menu {
   font-size: 18px;
   line-height: 1;
+  display: none;
 }
 
 </style>
