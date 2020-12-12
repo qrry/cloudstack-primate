@@ -80,6 +80,7 @@
         </a-form-item>
 
       </a-tab-pane>
+      <!--
       <a-tab-pane key="saml" :disabled="idps.length === 0">
         <span slot="tab">
           <a-icon type="audit" />
@@ -93,6 +94,7 @@
           </a-select>
         </a-form-item>
       </a-tab-pane>
+      -->
     </a-tabs>
 
     <a-form-item>
@@ -228,6 +230,9 @@ export default {
   min-width: 260px;
   width: 368px;
   margin: 0 auto;
+  position: absolute;
+  right:100px;
+  top:300px;
 
   .mobile & {
     max-width: 368px;

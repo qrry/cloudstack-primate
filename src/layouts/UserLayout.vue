@@ -23,7 +23,10 @@
           v-if="$config.banner"
           :style="{
             width: $config.theme['@banner-width'],
-            height: $config.theme['@banner-height']
+            height: $config.theme['@banner-height'],
+            position: $config.theme['@banner-position'],
+            left: $config.theme['@banner-left'],
+            top: $config.theme['@banner-top']
           }"
           :src="$config.banner"
           class="user-layout-logo"
@@ -56,8 +59,8 @@ export default {
 
 <style lang="less" scoped>
 .user-layout {
-  height: 100%;
-  background: #fff;
+  height: 110%;
+  background-image: url("../assets/login_background.jpg");
 
   &-container {
     padding: 3rem 0;
@@ -66,7 +69,7 @@ export default {
     @media (min-height:600px) {
       padding: 0;
       position: relative;
-      top: 50%;
+      top: 1px;
       transform: translateY(-50%);
       margin-top: -50px;
     }
