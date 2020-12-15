@@ -36,6 +36,7 @@ import offering from '@/config/section/offering'
 import config from '@/config/section/config'
 import quota from '@/config/section/plugin/quota'
 import cloudian from '@/config/section/plugin/cloudian'
+import control from '@/config/section/control'
 
 function generateRouterMap (section) {
   var map = {
@@ -223,6 +224,7 @@ export function asyncRouterMap () {
       generateRouterMap(domain),
       generateRouterMap(infra),
       generateRouterMap(offering),
+      generateRouterMap(control),
       generateRouterMap(config),
       generateRouterMap(quota),
       generateRouterMap(cloudian),
