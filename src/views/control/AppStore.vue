@@ -1,94 +1,112 @@
 <template>
-  <a-row :gutter="12">
-    <a-col :md="24">
-      <a-card class="breadcrumb-card">
-        <a-col :md="24" style="display: flex">
-          <breadcrumb style="padding-top: 6px; padding-left: 8px" />
-          <a-button
-            style="margin-left: 12px; margin-top: 4px"
-            :loading="loading"
-            icon="reload"
-            size="small"
-            shape="round"
-            @click="fetchData()" >
-            {{ $t('label.refresh') }}
-          </a-button>
-        </a-col>
-      </a-card>
-    </a-col>
-    <a-col
-      :md="6"
-      style="margin-bottom: 12px">
-      <chart-card :loading="loading">
-        <div class="chart-card-inner">
-          <router-link :to="{ name: 'appManager' }">
-            <h2>{{ $t('SFTP') }}</h2>
-            <h2><a-icon type="security-scan"/>0</h2>
-          </router-link>
-        </div>
-      </chart-card>
-    </a-col>
-    <a-col
-      :md="6"
-      style="margin-bottom: 12px">
-      <chart-card :loading="loading">
-        <div class="chart-card-inner">
-          <router-link :to="{ name: 'appManager' }">
-            <h2>{{ $t('TCPDUMP') }}</h2>
-            <h2><a-icon type="safety"/>1</h2>
-          </router-link>
-        </div>
-      </chart-card>
-    </a-col>
-    <a-col
-      :md="6"
-      style="margin-bottom: 12px">
-      <chart-card :loading="loading">
-        <div class="chart-card-inner">
-          <router-link :to="{ name: 'appManager' }">
-            <h2>{{ $t('NMAP') }}</h2>
-            <h2><a-icon type="monitor"/>0</h2>
-          </router-link>
-        </div>
-      </chart-card>
-    </a-col>
-    <a-col
-      :md="6"
-      style="margin-bottom: 12px">
-      <chart-card :loading="loading">
-        <div class="chart-card-inner">
-          <router-link :to="{ name: 'appManager' }">
-            <h2>{{ $t('Nginx') }}</h2>
-            <h2><a-icon type="shake"/>0</h2>
-          </router-link>
-        </div>
-      </chart-card>
-    </a-col>
-    <a-col
-      :md="6"
-      style="margin-bottom: 12px">
-      <chart-card :loading="loading">
-        <div class="chart-card-inner">
-          <router-link :to="{ name: 'appManager' }">
-            <h2>{{ $t('Apache Http') }}</h2>
-            <h2><a-icon type="api"/>0</h2>
-          </router-link>
-        </div>
-      </chart-card>
-    </a-col>
-    <a-col
-      :md="6"
-      style="margin-bottom: 12px">
-      <chart-card :loading="loading">
-        <div class="chart-card-inner">
-          <router-link :to="{ name: 'appManager' }">
-            <h2>{{ $t('MySql') }}</h2>
-            <h2><a-icon type="block"/>0</h2>
-          </router-link>
-        </div>
-      </chart-card>
-    </a-col>
-  </a-row>
+  <div>
+    <a-row :gutter="12">
+      <a-col :md="24">
+        <a-card class="breadcrumb-card">
+          <a-col :md="24" style="display: flex">
+            <breadcrumb style="padding-top: 6px; padding-left: 8px" />
+            <a-button
+              style="margin-left: 12px; margin-top: 4px"
+              :loading="loading"
+              icon="reload"
+              size="small"
+              shape="round"
+              @click="fetchData()" >
+              {{ $t('label.refresh') }}
+            </a-button>
+          </a-col>
+        </a-card>
+      </a-col>
+      <a-col
+        :md="6"
+        style="margin-bottom: 12px">
+        <chart-card :loading="loading">
+          <div class="chart-card-inner">
+            <router-link :to="{ name: 'appManager' }">
+              <h2>{{ $t('SFTP') }}</h2>
+              <h2><a-icon type="security-scan"/>0</h2>
+            </router-link>
+          </div>
+        </chart-card>
+      </a-col>
+      <a-col
+        :md="6"
+        style="margin-bottom: 12px">
+        <chart-card :loading="loading">
+          <div class="chart-card-inner">
+            <router-link :to="{ name: 'appManager' }">
+              <h2>{{ $t('TCPDUMP') }}</h2>
+              <h2><a-icon type="safety"/>1</h2>
+            </router-link>
+          </div>
+        </chart-card>
+      </a-col>
+      <a-col
+        :md="6"
+        style="margin-bottom: 12px">
+        <chart-card :loading="loading">
+          <div class="chart-card-inner">
+            <router-link :to="{ name: 'appManager' }">
+              <h2>{{ $t('NMAP') }}</h2>
+              <h2><a-icon type="monitor"/>0</h2>
+            </router-link>
+          </div>
+        </chart-card>
+      </a-col>
+      <a-col
+        :md="6"
+        style="margin-bottom: 12px">
+        <chart-card :loading="loading">
+          <div class="chart-card-inner">
+            <router-link :to="{ name: 'appManager' }">
+              <h2>{{ $t('Nginx') }}</h2>
+              <h2><a-icon type="shake"/>0</h2>
+            </router-link>
+          </div>
+        </chart-card>
+      </a-col>
+      <a-col
+        :md="6"
+        style="margin-bottom: 12px">
+        <chart-card :loading="loading">
+          <div class="chart-card-inner">
+            <router-link :to="{ name: 'appManager' }">
+              <h2>{{ $t('Apache Http') }}</h2>
+              <h2><a-icon type="api"/>0</h2>
+            </router-link>
+          </div>
+        </chart-card>
+      </a-col>
+      <a-col
+        :md="6"
+        style="margin-bottom: 12px">
+        <chart-card :loading="loading">
+          <div class="chart-card-inner">
+            <router-link :to="{ name: 'appManager' }">
+              <h2>{{ $t('MySql') }}</h2>
+              <h2><a-icon type="block"/>0</h2>
+            </router-link>
+          </div>
+        </chart-card>
+      </a-col>
+    </a-row>
+    <a-pagination
+      class="row-element"
+      size="small"
+      :current="page"
+      :pageSize="pageSize"
+      :total="itemCount"
+      :showTotal="total => `${$t('label.showing')} ${Math.min(total, 1+((page-1)*pageSize))}-${Math.min(page*pageSize, total)} ${$t('label.of')} ${total} ${$t('label.items')}`"
+      :pageSizeOptions="device === 'desktop' ? ['20', '50', '100', '200'] : ['10', '20', '50', '100', '200']"
+      @change="changePage"
+      @showSizeChange="changePageSize"
+      showSizeChanger
+      showQuickJumper>
+      <template slot="buildOptionText" slot-scope="props">
+        <span>{{ props.value }} / {{ $t('label.page') }}</span>
+      </template>
+    </a-pagination>
+  </div>
 </template>
 
 <script>
@@ -113,7 +131,10 @@ export default {
       stats: {},
       intermediateCertificates: [],
       sslFormSubmitting: false,
-      maxCerts: 0
+      maxCerts: 0,
+      page: 1,
+      pageSize: 10,
+      itemCount: 0
     }
   },
   beforeCreate () {
@@ -143,19 +164,30 @@ export default {
       this.loading = true
       api('listAppStoreApis', {
         listall: true,
-        pagesize: 20,
-        page: 1
-        // todo 分页
+        pagesize: this.pageSize,
+        page: this.page
       }).then(json => {
         this.stats = []
-        if (json && json.listinfrastructureresponse && json.listinfrastructureresponse.infrastructure) {
-          this.stats = json.listinfrastructureresponse.infrastructure
+        if (json && json.listAppStoreResponse && json.listAppStoreResponse.appStore) {
+          this.stats = json.listAppStoreResponse.appStore
+          this.itemCount = json.listAppStoreResponse.count
         }
       }).finally(f => {
         this.loading = false
       })
     },
-
+    changePage (page, pageSize) {
+      const query = Object.assign({}, this.$route.query)
+      query.page = page
+      query.pagesize = pageSize
+      this.$router.push({ query })
+    },
+    changePageSize (currentPage, pageSize) {
+      const query = Object.assign({}, this.$route.query)
+      query.page = currentPage
+      query.pagesize = pageSize
+      this.$router.push({ query })
+    },
     pollActionCompletion (jobId, count) {
       api('queryAsyncJobResult', { jobid: jobId }).then(json => {
         const result = json.queryasyncjobresultresponse
