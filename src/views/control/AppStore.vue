@@ -3,7 +3,7 @@
     <a-row :gutter="12">
       <a-col :md="24">
         <a-card class="breadcrumb-card">
-          <a-col :md="24" style="display: flex">
+          <a-col :md="16" style="display: flex">
             <breadcrumb style="padding-top: 6px; padding-left: 8px" />
             <a-button
               style="margin-left: 12px; margin-top: 4px"
@@ -15,80 +15,31 @@
               {{ $t('label.refresh') }}
             </a-button>
           </a-col>
+          <a-col :span="8">
+            <span style="float: right">
+              <action-button
+                :actions="actions"
+                :loading="loading"
+                @exec-action="execAction"/>
+            </span>
+          </a-col>
         </a-card>
       </a-col>
-      <a-col
-        :md="6"
-        style="margin-bottom: 12px">
-        <chart-card :loading="loading">
-          <div class="chart-card-inner">
-            <router-link :to="{ name: 'appManager' }">
-              <h2>{{ $t('SFTP') }}</h2>
-              <h2><a-icon type="security-scan"/>0</h2>
-            </router-link>
-          </div>
-        </chart-card>
-      </a-col>
-      <a-col
-        :md="6"
-        style="margin-bottom: 12px">
-        <chart-card :loading="loading">
-          <div class="chart-card-inner">
-            <router-link :to="{ name: 'appManager' }">
-              <h2>{{ $t('TCPDUMP') }}</h2>
-              <h2><a-icon type="safety"/>1</h2>
-            </router-link>
-          </div>
-        </chart-card>
-      </a-col>
-      <a-col
-        :md="6"
-        style="margin-bottom: 12px">
-        <chart-card :loading="loading">
-          <div class="chart-card-inner">
-            <router-link :to="{ name: 'appManager' }">
-              <h2>{{ $t('NMAP') }}</h2>
-              <h2><a-icon type="monitor"/>0</h2>
-            </router-link>
-          </div>
-        </chart-card>
-      </a-col>
-      <a-col
-        :md="6"
-        style="margin-bottom: 12px">
-        <chart-card :loading="loading">
-          <div class="chart-card-inner">
-            <router-link :to="{ name: 'appManager' }">
-              <h2>{{ $t('Nginx') }}</h2>
-              <h2><a-icon type="shake"/>0</h2>
-            </router-link>
-          </div>
-        </chart-card>
-      </a-col>
-      <a-col
-        :md="6"
-        style="margin-bottom: 12px">
-        <chart-card :loading="loading">
-          <div class="chart-card-inner">
-            <router-link :to="{ name: 'appManager' }">
-              <h2>{{ $t('Apache Http') }}</h2>
-              <h2><a-icon type="api"/>0</h2>
-            </router-link>
-          </div>
-        </chart-card>
-      </a-col>
-      <a-col
-        :md="6"
-        style="margin-bottom: 12px">
-        <chart-card :loading="loading">
-          <div class="chart-card-inner">
-            <router-link :to="{ name: 'appManager' }">
-              <h2>{{ $t('MySql') }}</h2>
-              <h2><a-icon type="block"/>0</h2>
-            </router-link>
-          </div>
-        </chart-card>
-      </a-col>
+      <div v-for="item in stats" :key="item.id">
+        <a-col
+          :md="6"
+          style="margin-bottom: 12px"
+        >
+          <chart-card :loading="loading">
+            <div class="chart-card-inner">
+              <router-link :to="{ name: 'appManager' }">
+                <h2>{{ item.name }}</h2>
+                <h2><a-icon type="security-scan"/>{{ item.instanceCount }}</h2>
+              </router-link>
+            </div>
+          </chart-card>
+        </a-col>
+      </div>
     </a-row>
     <a-pagination
       class="row-element"
@@ -97,7 +48,7 @@
       :pageSize="pageSize"
       :total="itemCount"
       :showTotal="total => `${$t('label.showing')} ${Math.min(total, 1+((page-1)*pageSize))}-${Math.min(page*pageSize, total)} ${$t('label.of')} ${total} ${$t('label.items')}`"
-      :pageSizeOptions="device === 'desktop' ? ['20', '50', '100', '200'] : ['10', '20', '50', '100', '200']"
+      :pageSizeOptions="['10', '20', '50', '100', '200']"
       @change="changePage"
       @showSizeChange="changePageSize"
       showSizeChanger
@@ -106,6 +57,25 @@
         <span>{{ props.value }} / {{ $t('label.page') }}</span>
       </template>
     </a-pagination>
+    <div v-if="showFormAction">
+      <keep-alive v-if="currentAction.component">
+        <a-modal
+          :title="$t(currentAction.label)"
+          :visible="showFormAction"
+          :closable="true"
+          :maskClosable="false"
+          :cancelText="$t('label.cancel')"
+          style="top: 20px;"
+          @cancel="onCloseAction"
+          :confirmLoading="actionLoading"
+          :footer="null"
+          centered>
+          <component
+            :is="currentAction.component"
+            :action="currentAction" />
+        </a-modal>
+      </keep-alive>
+    </div>
   </div>
 </template>
 
@@ -115,12 +85,14 @@ import router from '@/router'
 
 import Breadcrumb from '@/components/widgets/Breadcrumb'
 import ChartCard from '@/components/widgets/ChartCard'
+import ActionButton from '@/components/view/ActionButton'
 
 export default {
   name: 'InfraSummary',
   components: {
     Breadcrumb,
-    ChartCard
+    ChartCard,
+    ActionButton
   },
   data () {
     return {
@@ -128,13 +100,32 @@ export default {
       routes: {},
       sections: ['zones', 'pods', 'clusters', 'hosts', 'storagepools', 'imagestores', 'systemvms', 'routers', 'cpusockets', 'managementservers', 'alerts', 'ilbvms'],
       sslFormVisible: false,
-      stats: {},
+      stats: [],
       intermediateCertificates: [],
       sslFormSubmitting: false,
       maxCerts: 0,
       page: 1,
       pageSize: 10,
-      itemCount: 0
+      itemCount: 0,
+      showFormAction: false,
+      currentAction: {},
+      actionLoading: false
+    }
+  },
+  computed: {
+    actions () {
+      let actions = []
+      if (this.$route && this.$route.meta) {
+        if (this.$route.meta.actions) {
+          actions = this.$route.meta.actions
+        }
+      }
+      return actions
+    }
+  },
+  provide: function () {
+    return {
+      parentFetchData: this.fetchData
     }
   },
   beforeCreate () {
@@ -160,6 +151,14 @@ export default {
       }
       this.listInfra()
     },
+    onCloseAction () {
+      this.currentAction = {}
+      this.showFormAction = false
+    },
+    execAction (action) {
+      this.currentAction = action
+      this.showFormAction = true
+    },
     listInfra () {
       this.loading = true
       api('listAppStoreApis', {
@@ -167,7 +166,6 @@ export default {
         pagesize: this.pageSize,
         page: this.page
       }).then(json => {
-        this.stats = []
         if (json && json.listAppStoreResponse && json.listAppStoreResponse.appStore) {
           this.stats = json.listAppStoreResponse.appStore
           this.itemCount = json.listAppStoreResponse.count
@@ -177,16 +175,14 @@ export default {
       })
     },
     changePage (page, pageSize) {
-      const query = Object.assign({}, this.$route.query)
-      query.page = page
-      query.pagesize = pageSize
-      this.$router.push({ query })
+      this.page = page
+      this.pageSize = pageSize
+      this.fetchData()
     },
     changePageSize (currentPage, pageSize) {
-      const query = Object.assign({}, this.$route.query)
-      query.page = currentPage
-      query.pagesize = pageSize
-      this.$router.push({ query })
+      this.page = currentPage
+      this.pageSize = pageSize
+      this.fetchData()
     },
     pollActionCompletion (jobId, count) {
       api('queryAsyncJobResult', { jobid: jobId }).then(json => {
@@ -210,63 +206,6 @@ export default {
         }
       }).catch(e => {
         console.log(this.$t('error.fetching.async.job.result') + e)
-      })
-    },
-
-    handleSslFormSubmit () {
-      this.sslFormSubmitting = true
-
-      this.form.validateFields(errors => {
-        if (errors) {
-          this.sslFormSubmitting = false
-          return
-        }
-
-        const formValues = this.form.getFieldsValue()
-
-        this.maxCerts = 2 + Object.keys(formValues).length
-        let count = 1
-        let data = {
-          id: count,
-          certificate: formValues.root,
-          domainsuffix: formValues.dns,
-          name: 'root'
-        }
-        api('uploadCustomCertificate', {}, 'POST', data).then(response => {
-          this.pollActionCompletion(response.uploadcustomcertificateresponse.jobid, count)
-        }).then(() => {
-          this.sslModalClose()
-        })
-
-        Object.keys(formValues).forEach(key => {
-          if (key.includes('intermediate')) {
-            count = count + 1
-            const data = {
-              id: count,
-              certificate: formValues[key],
-              domainsuffix: formValues.dns,
-              name: key
-            }
-            api('uploadCustomCertificate', {}, 'POST', data).then(response => {
-              this.pollActionCompletion(response.uploadcustomcertificateresponse.jobid, count)
-            }).then(() => {
-              this.sslModalClose()
-            })
-          }
-        })
-
-        count = count <= 2 ? 3 : count + 1
-        data = {
-          id: count,
-          certificate: formValues.server,
-          domainsuffix: formValues.dns,
-          privatekey: formValues.pkcs
-        }
-        api('uploadCustomCertificate', {}, 'POST', data).then(response => {
-          this.pollActionCompletion(response.uploadcustomcertificateresponse.jobid, count)
-        }).then(() => {
-          this.sslModalClose()
-        })
       })
     }
   }

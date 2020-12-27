@@ -46,7 +46,7 @@ export default {
       docHelp: 'installguide/configuration.html#adding-a-pod',
       listView: true,
       popup: true,
-      component: () => import('@/views/control/AppStoreAdd.vue')
+      component: () => import('@/views/control/AppStoreManageAdd.vue')
     },
     {
       api: 'updatePod',

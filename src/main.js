@@ -21,7 +21,6 @@ Vue.use(toLocaleDatePlugin)
 fetch('config.json').then(response => response.json()).then(config => {
   Vue.prototype.$config = config
   Vue.axios.defaults.baseURL = config.apiBase
-  console.log('hjh', Vue.axios.defaults)
   new Vue({
     router,
     store,

@@ -28,7 +28,17 @@ export default {
       title: '应用商店',
       icon: 'apple',
       permission: ['listInfrastructure'],
-      component: () => import('@/views/control/AppStore.vue')
+      component: () => import('@/views/control/AppStore.vue'),
+      actions: [
+        {
+          api: 'createAppStore',
+          icon: 'plus',
+          label: '添加应用',
+          listView: true,
+          popup: true,
+          component: () => import('@/views/control/AppStoreAdd.vue')
+        }
+      ]
     },
     appmanager
   ]
