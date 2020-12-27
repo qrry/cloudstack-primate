@@ -1,9 +1,3 @@
-# CloudStack Primate [![Build Status](https://travis-ci.org/apache/cloudstack-primate.svg?branch=master)](https://travis-ci.org/apache/cloudstack-primate)
-
-A modern role-based progressive CloudStack UI based on VueJS and Ant Design.
-
-![Primate Screenshot](docs/screenshot-dashboard.png)
-
 ## Getting Started
 
 Install node: (Debian/Ubuntu)
@@ -25,7 +19,7 @@ Optionally, you may also install system-wide dev tools:
 
 Clone the repository:
 
-    git clone https://github.com/apache/cloudstack-primate.git
+    git clone https://github.com/qrry/cloudstack-primate.git
     cd cloudstack-primate
     npm install
 
