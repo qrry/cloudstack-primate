@@ -12,14 +12,18 @@
         />
       </a-form-item>
       <a-form-item class="form__item" :label="$t('label.appmanager.icon')">
-        <a-input
-          :placeholder="placeholder.icon"
-          v-decorator="[
-            'icon',
-            {
-              rules: [{ required: true, message: `${$t('label.required')}` }]
-            }]"
-        />
+        <a-select
+          v-decorator="['icon', {
+            rules: [{ required: true, message: `${$t('label.required')}` }] }
+          ]">
+          <a-select-option
+            v-for="icon in icons"
+            :value="icon"
+            :key="icon">
+            {{ icon }}
+            <a-icon :type="icon" style="float: right" />
+          </a-select-option>
+        </a-select>
       </a-form-item>
 
       <a-divider></a-divider>
@@ -36,6 +40,7 @@
 <script>
 import { api } from '@/api'
 import DedicateDomain from '../../components/view/DedicateDomain'
+import icons from './icons'
 
 export default {
   name: 'ClusterAdd',
@@ -46,23 +51,10 @@ export default {
   data () {
     return {
       loading: false,
-      instancesList: [],
-      instanceId: null,
-      appsList: [],
-      appId: null,
-      appStatusList: [],
-      appStatusId: null,
-      showDedicated: false,
-      dedicatedDomainId: null,
-      dedicatedAccount: null,
-      domainError: false,
-      params: [],
+      icons: icons,
       placeholder: {
         name: null,
-        gateway: null,
-        netmask: null,
-        startip: null,
-        endip: null
+        icon: null
       }
     }
   },
@@ -113,15 +105,6 @@ export default {
     &__item {
       margin-bottom: 20px;
     }
-
-    .ant-select {
-      width: 85vw;
-
-      @media (min-width: 760px) {
-        width: 400px;
-      }
-    }
-
   }
 
   .actions {

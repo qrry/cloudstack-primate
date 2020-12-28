@@ -34,7 +34,7 @@
             <div class="chart-card-inner">
               <router-link :to="{ name: 'appManager' }">
                 <h2>{{ item.name }}</h2>
-                <h2><a-icon type="security-scan"/>{{ item.instanceCount }}</h2>
+                <h2><a-icon :type="item.icon" style="margin-right: 8px" />{{ item.instanceCount }}</h2>
               </router-link>
             </div>
           </chart-card>
