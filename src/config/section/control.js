@@ -27,7 +27,7 @@ export default {
       name: 'appStore',
       title: '应用商店',
       icon: 'apple',
-      permission: ['listInfrastructure'],
+      permission: [],
       component: () => import('@/views/control/AppStore.vue'),
       actions: [
         {
@@ -37,6 +37,21 @@ export default {
           listView: true,
           popup: true,
           component: () => import('@/views/control/AppStoreAdd.vue')
+        },
+        {
+          api: 'updateAppStore',
+          icon: 'edit',
+          label: 'label.edit',
+          dataView: true,
+          popup: true,
+          component: () => import('@/views/control/AppStoreEdit.vue')
+        },
+        {
+          api: 'deleteAppStore',
+          icon: 'delete',
+          label: 'label.action.delete.application',
+          message: 'message.action.delete.application',
+          dataView: true
         }
       ]
     },
