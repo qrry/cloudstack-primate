@@ -51,12 +51,16 @@ export default {
 
 <style type="less" scoped>
 .logo {
-  height: 64px;
+  text-align: center;
+  height: 100px;
   position: relative;
-  line-height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   -webkit-transition: all .3s;
   transition: all .3s;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .sider.light .logo {
