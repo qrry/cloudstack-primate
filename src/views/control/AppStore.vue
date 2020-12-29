@@ -38,7 +38,7 @@
               <div class="chart-card-inner">
                 <h2>
                   <router-link :to="{ path: '/appStore/' + item.id }">
-                    <a-icon :type="item.icon" style="margin-right: 8px" />
+                    <a-icon :type="item.icon" style="margin-right: 8px;font-size: 40px" />
                   </router-link>
                 </h2>
                 <h2>{{ item.name }}</h2>

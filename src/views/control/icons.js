@@ -1,3 +1,5 @@
+const icons = [{ name: 'step-backward', color: '#aaa' }]
+
 export default [
   'step-backward',
   'step-forward',
