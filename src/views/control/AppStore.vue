@@ -36,15 +36,17 @@
           >
             <chart-card :loading="loading">
               <div class="chart-card-inner">
-                <h2>{{ item.name }}</h2>
                 <h2>
                   <router-link :to="{ path: '/appStore/' + item.id }">
                     <a-icon :type="item.icon" style="margin-right: 8px" />
                   </router-link>
-                  <router-link :to="{ name: 'appManager' }">
-                    {{ item.instanceCount }}
-                  </router-link>
                 </h2>
+                <h2>{{ item.name }}</h2>
+                <p>
+                  <router-link :to="{ name: 'appManager' }">
+                    实例数：{{ item.instanceCount }}
+                  </router-link>
+                </p>
               </div>
             </chart-card>
           </a-col>
