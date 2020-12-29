@@ -106,12 +106,17 @@ export default {
       this.fetchData()
     }
   },
+  provide: function () {
+    return {
+      parentFetchData: this.fetchApplication
+    }
+  },
   methods: {
     fetchData () {
       if (String(this.resource.id) === this.id) {
         return
       }
-      this.fetchApplication().then(() => this.parentFetchData())
+      this.fetchApplication()
     },
     fetchApplication () {
       this.loading = true
@@ -125,6 +130,7 @@ export default {
           .then(json => {
             if (json.listAppStoreResponse && json.listAppStoreResponse.appStore) {
               this.resource = json.listAppStoreResponse.appStore[0]
+              this.parentFetchData()
             }
           })
           .finally(() => {

@@ -20,6 +20,7 @@ export default {
   title: '应用管理',
   icon: 'appstore',
   permission: ['listPods'],
+  // permission: ['listAppManage'],
   columns: ['appManager.appName', 'appManager.appDescription', 'appManager.instance', 'appManager.appStatus', 'appManager.installTime', 'appManager.operation'],
   details: ['应用名称', '应用描述', '所属实例', '应用状态', '安装时间', '操作'],
   related: [{
