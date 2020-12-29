@@ -51,7 +51,7 @@ export default {
     DedicateDomain
   },
   inject: ['parentFetchData'],
-  data() {
+  data () {
     return {
       loading: false,
       icons: icons,
@@ -63,29 +63,29 @@ export default {
     }
   },
   watch: {
-    resource() {
+    resource () {
       if (this.id) {
         this.fetchData()
       }
     }
   },
-  mounted() {
+  mounted () {
     if (this.$route.params.id) {
       this.fetchData()
     }
   },
-  beforeCreate() {
+  beforeCreate () {
     this.form = this.$form.createForm(this)
   },
   methods: {
-    async fetchData() {
+    async fetchData () {
       if (String(this.resource.id) === this.$route.params.id) {
         return
       }
       this.loading = true
       await this.fetchApplication()
     },
-    fetchApplication() {
+    fetchApplication () {
       return new Promise((resolve, reject) => {
         api('listAppStore', {
           listAll: true,
@@ -103,7 +103,7 @@ export default {
           })
       })
     },
-    handleSubmit(e) {
+    handleSubmit (e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (err) return

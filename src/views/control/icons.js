@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const icons = [{ name: 'step-backward', color: '#aaa' }]
 
 export default [
