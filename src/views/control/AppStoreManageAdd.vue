@@ -138,7 +138,7 @@ export default {
       this.fetchInstances()
     },
     fetchApps () {
-      api('listAppStoreApis', {
+      api('listAppStore', {
         listall: true,
         pagesize: 100,
         page: 1

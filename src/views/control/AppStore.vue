@@ -190,7 +190,7 @@ export default {
     },
     listInfra () {
       this.loading = true
-      api('listAppStoreApis', {
+      api('listAppStore', {
         listall: true,
         pagesize: this.pageSize,
         page: this.page

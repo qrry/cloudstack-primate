@@ -116,7 +116,7 @@ export default {
     fetchApplication () {
       this.loading = true
       return new Promise((resolve, reject) => {
-        api('listAppStoreApis', {
+        api('listAppStore', {
           listAll: true,
           id: this.id,
           page: 1,

@@ -87,7 +87,7 @@ export default {
     },
     fetchApplication () {
       return new Promise((resolve, reject) => {
-        api('listAppStoreApis', {
+        api('listAppStore', {
           listAll: true,
           id: this.$route.params.id,
           page: 1,
