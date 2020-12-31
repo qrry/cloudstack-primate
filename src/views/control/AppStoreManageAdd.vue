@@ -171,18 +171,14 @@ export default {
         this.loading = true
         const apiName = this.values.id ? 'updateAppManage' : 'createAppManage'
         api(apiName, {
-          appStoreId: values.appid,
-          instanceId: values.instanceid,
+          app_store_id: values.appid,
+          instance_id: values.instanceid,
           description: values.name,
           state: values.appStatusid,
           ...this.values.id && {
             id: this.values.id
           }
         }).then(response => {
-          const pod = response.createpodresponse.pod || {}
-          if (pod.id && this.showDedicated) {
-            this.dedicatePod(pod.id)
-          }
           this.loading = false
           this.parentFetchData()
           this.$parent.$parent.close()
@@ -194,44 +190,6 @@ export default {
           })
           this.loading = false
         })
-      })
-    },
-    dedicatePod (podId) {
-      this.loading = true
-      api('dedicatePod', {
-        podId,
-        domainid: this.dedicatedDomainId,
-        account: this.dedicatedAccount
-      }).then(response => {
-        this.$pollJob({
-          jobId: response.dedicatepodresponse.jobid,
-          successMessage: this.$t('message.pod.dedicated'),
-          successMethod: () => {
-            this.loading = false
-            this.$store.dispatch('AddAsyncJob', {
-              title: this.$t('message.pod.dedicated'),
-              jobid: response.dedicatepodresponse.jobid,
-              description: `${this.$t('label.domainid')} : ${this.dedicatedDomainId}`,
-              status: 'progress'
-            })
-          },
-          errorMessage: this.$t('error.dedicate.pod.failed'),
-          errorMethod: () => {
-            this.loading = false
-          },
-          loadingMessage: this.$t('message.dedicating.pod'),
-          catchMessage: this.$t('error.fetching.async.job.result'),
-          catchMethod: () => {
-            this.loading = false
-          }
-        })
-      }).catch(error => {
-        this.$notification.error({
-          message: `${this.$t('label.error')} ${error.response.status}`,
-          description: error.response.data.errorresponse.errortext,
-          duration: 0
-        })
-        this.loading = false
       })
     },
     returnPlaceholder (field) {

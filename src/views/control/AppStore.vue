@@ -44,7 +44,7 @@
                 </router-link>
                 <p>
                   <router-link :to="{ name: 'appManager' }">
-                    实例数：{{ item.instanceCount }}
+                    实例数：{{ item.instance_count }}
                   </router-link>
                 </p>
               </div>
