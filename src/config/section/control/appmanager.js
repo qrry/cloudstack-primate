@@ -19,10 +19,9 @@ export default {
   name: 'appManager',
   title: '应用管理',
   icon: 'appstore',
-  permission: ['listPods'],
-  // permission: ['listAppManage'],
-  columns: ['appManager.appName', 'appManager.appDescription', 'appManager.instance', 'appManager.appStatus', 'appManager.installTime', 'appManager.operation'],
-  details: ['应用名称', '应用描述', '所属实例', '应用状态', '安装时间', '操作'],
+  permission: ['listAppManage'],
+  columns: ['description', 'instanceId', 'state', 'created', 'operation'],
+  details: ['应用描述', '所属实例', '应用状态', '安装时间', '操作'],
   related: [{
     name: 'cluster',
     title: 'label.clusters',
@@ -41,7 +40,7 @@ export default {
   }],
   actions: [
     {
-      api: 'createPod',
+      api: 'createAppManage',
       icon: 'plus',
       label: '添加应用',
       docHelp: 'installguide/configuration.html#adding-a-pod',
@@ -100,11 +99,13 @@ export default {
       }
     },
     {
-      api: 'deletePod',
+      key: 'delete',
+      api: 'deleteAppManage',
       icon: 'delete',
       label: 'label.action.delete.pod',
       message: 'message.action.delete.pod',
-      dataView: true
+      dataView: true,
+      args: ['id']
     }
   ]
 }

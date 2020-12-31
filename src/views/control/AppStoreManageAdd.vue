@@ -1,20 +1,3 @@
-// Licensed to the Apache Software Foundation (ASF) under one
-// or more contributor license agreements.  See the NOTICE file
-// distributed with this work for additional information
-// regarding copyright ownership.  The ASF licenses this file
-// to you under the Apache License, Version 2.0 (the
-// "License"); you may not use this file except in compliance
-// with the License.  You may obtain a copy of the License at
-//
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
-
 <template>
   <a-spin :spinning="loading">
     <a-form :form="form" layout="vertical" class="form">
@@ -156,8 +139,12 @@ export default {
     },
     fetchInstances () {
       this.loading = true
-      api('listInstanceGroups').then(response => {
-        this.instancesList = response.listinstancegroupsresponse.instancegroup || []
+      api('listVirtualMachinesMetrics', {
+        listall: true,
+        page: 1,
+        pagesize: 100
+      }).then(response => {
+        this.instancesList = response.listvirtualmachinesmetricsresponse.virtualmachine || []
         this.instanceId = this.instancesList[0].id
         this.params = this.$store.getters.apis.createPod.params
         Object.keys(this.placeholder).forEach(item => { this.returnPlaceholder(item) })
@@ -178,13 +165,11 @@ export default {
         if (err) return
 
         this.loading = true
-        api('createPod', {
-          zoneId: values.zoneid,
-          name: values.name,
-          gateway: values.gateway,
-          netmask: values.netmask,
-          startip: values.startip,
-          endip: values.endip
+        api('createAppManage', {
+          appStoreId: values.appid,
+          instanceId: values.instanceid,
+          description: values.name,
+          state: values.appStatusid
         }).then(response => {
           const pod = response.createpodresponse.pod || {}
           if (pod.id && this.showDedicated) {
