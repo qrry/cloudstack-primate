@@ -49,11 +49,13 @@ export default {
       component: () => import('@/views/control/AppStoreManageAdd.vue')
     },
     {
+      key: 'update',
       api: 'updatePod',
       icon: 'edit',
       label: 'label.edit',
       dataView: true,
-      args: ['name', 'netmask', 'gateway']
+      args: ['name', 'netmask', 'gateway'],
+      component: () => import('@/views/control/AppStoreManageAdd.vue')
     },
     {
       api: 'updatePod',

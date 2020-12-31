@@ -23,6 +23,7 @@
           v-decorator="[
             'name',
             {
+              initialValue: this.name,
               rules: [{ required: true, message: `${$t('label.required')}` }]
             }]"
         />
@@ -74,14 +75,15 @@ import { api } from '@/api'
 import DedicateDomain from '../../components/view/DedicateDomain'
 
 export default {
-  name: 'ClusterAdd',
+  name: 'AppStoreManageAdd',
   components: {
     DedicateDomain
   },
   props: {
-    resource: {
+    values: {
       type: Object,
-      required: true
+      default: () => ({}),
+      required: false
     }
   },
   inject: ['parentFetchData'],
@@ -89,6 +91,7 @@ export default {
     return {
       loading: false,
       instancesList: [],
+      name: '',
       instanceId: null,
       appsList: [],
       appId: null,
@@ -128,14 +131,15 @@ export default {
       }).then(json => {
         if (json && json.listAppStoreResponse && json.listAppStoreResponse.appStore && json.listAppStoreResponse.appStore.length > 0) {
           this.appsList = json.listAppStoreResponse.appStore
-          this.appId = json.listAppStoreResponse.appStore[0].id
+          this.appId = this.values.appStoreId || json.listAppStoreResponse.appStore[0].id
+          this.name = this.values.description
         }
       })
     },
     fetchAppStatus () {
       this.appStatusList = [{ id: 0, name: '未安装' },
         { id: 1, name: '已安装' }]
-      this.appStatusId = this.appStatusList[0].id
+      this.appStatusId = this.values.state || this.appStatusList[0].id
     },
     fetchInstances () {
       this.loading = true
@@ -145,7 +149,7 @@ export default {
         pagesize: 100
       }).then(response => {
         this.instancesList = response.listvirtualmachinesmetricsresponse.virtualmachine || []
-        this.instanceId = this.instancesList[0].id
+        this.instanceId = this.values.instanceId || this.instancesList[0].id
         this.params = this.$store.getters.apis.createPod.params
         Object.keys(this.placeholder).forEach(item => { this.returnPlaceholder(item) })
       }).catch(error => {
@@ -165,11 +169,15 @@ export default {
         if (err) return
 
         this.loading = true
-        api('createAppManage', {
+        const apiName = this.values.id ? 'updateAppManage' : 'createAppManage'
+        api(apiName, {
           appStoreId: values.appid,
           instanceId: values.instanceid,
           description: values.name,
-          state: values.appStatusid
+          state: values.appStatusid,
+          ...this.values.id && {
+            id: this.values.id
+          }
         }).then(response => {
           const pod = response.createpodresponse.pod || {}
           if (pod.id && this.showDedicated) {
@@ -246,14 +254,9 @@ export default {
       margin-bottom: 20px;
     }
 
-    .ant-select {
-      width: 85vw;
-
-      @media (min-width: 760px) {
-        width: 400px;
-      }
+    .ant-select, .ant-input {
+      width: 100%;
     }
-
   }
 
   .actions {

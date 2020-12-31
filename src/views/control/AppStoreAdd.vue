@@ -73,10 +73,6 @@ export default {
           icon: values.icon
         }).then(response => {
           this.parentFetchData()
-          this.$notification.success({
-            message: '应用新增成功',
-            duration: 0
-          })
           this.$parent.$parent.close()
         }).catch(error => {
           this.$notification.error({
