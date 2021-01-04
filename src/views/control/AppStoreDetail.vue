@@ -70,7 +70,7 @@ import ChartCard from '@/components/widgets/ChartCard'
 import ActionButton from '@/components/view/ActionButton'
 
 export default {
-  name: 'ApplicationDetail',
+  name: 'AppStoreDetail',
   components: {
     ActionButton,
     Breadcrumb,

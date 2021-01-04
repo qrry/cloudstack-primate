@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="$route.params.id">
-      <application-detail :id="$route.params.id" />
+      <app-store-detail :id="$route.params.id" />
     </div>
     <div v-else>
       <a-row :gutter="12">
@@ -99,7 +99,7 @@ import router from '@/router'
 import Breadcrumb from '@/components/widgets/Breadcrumb'
 import ChartCard from '@/components/widgets/ChartCard'
 import ActionButton from '@/components/view/ActionButton'
-import ApplicationDetail from './ApplicationDetail'
+import AppStoreDetail from './AppStoreDetail'
 
 export default {
   name: 'InfraSummary',
@@ -107,7 +107,7 @@ export default {
     Breadcrumb,
     ChartCard,
     ActionButton,
-    ApplicationDetail
+    AppStoreDetail
   },
   data () {
     return {
