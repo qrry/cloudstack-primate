@@ -61,13 +61,12 @@
 
 <script>
 import { api } from '@/api'
-import DedicateDomain from '../../components/view/DedicateDomain'
 import icons from './icons'
 
 export default {
-  name: 'ClusterAdd',
+  name: 'AppStoreAdd',
   components: {
-    DedicateDomain
+
   },
   inject: ['parentFetchData'],
   data () {
@@ -77,7 +76,9 @@ export default {
       placeholder: {
         name: null,
         description: null,
-        icon: null
+        icon: null,
+        runScript: null,
+        remark: null
       }
     }
   },
@@ -93,14 +94,17 @@ export default {
         this.loading = true
         api('createAppStore', {
           name: values.name,
-          icon: values.icon
+          description: values.description,
+          icon: values.icon,
+          run_script: values.runScript,
+          remark: values.remark
         }).then(response => {
           this.parentFetchData()
           this.$parent.$parent.close()
         }).catch(error => {
           this.$notification.error({
             message: `${this.$t('label.error')} ${error.response.status}`,
-            description: error.response.data.createpodresponse.errortext,
+            description: error.response.data.createAppStoreResponse.errortext,
             duration: 0
           })
         }).finally(() => {

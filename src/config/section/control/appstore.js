@@ -25,7 +25,7 @@ export default {
     {
       api: 'createAppStore',
       icon: 'plus',
-      label: '添加应用',
+      label: 'label.appStore.createAppStore',
       listView: true,
       popup: true,
       component: () => import('@/views/control/AppStoreAdd.vue')
