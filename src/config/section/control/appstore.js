@@ -15,15 +15,35 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import appStore from '@/config/section/control/appstore'
-import appManager from '@/config/section/control/appmanager'
 export default {
-  name: 'control',
-  title: '控制面板',
-  icon: 'control',
-  permission: ['listInfrastructure'],
-  children: [
-    appStore,
-    appManager
+  name: 'appStore',
+  title: '应用商店',
+  icon: 'apple',
+  permission: [],
+  component: () => import('@/views/control/AppStore.vue'),
+  actions: [
+    {
+      api: 'createAppStore',
+      icon: 'plus',
+      label: '添加应用',
+      listView: true,
+      popup: true,
+      component: () => import('@/views/control/AppStoreAdd.vue')
+    },
+    {
+      api: 'updateAppStore',
+      icon: 'edit',
+      label: 'label.edit',
+      dataView: true,
+      popup: true,
+      component: () => import('@/views/control/AppStoreEdit.vue')
+    },
+    {
+      api: 'deleteAppStore',
+      icon: 'delete',
+      label: 'label.action.delete.application',
+      message: 'message.action.delete.application',
+      dataView: true
+    }
   ]
 }
