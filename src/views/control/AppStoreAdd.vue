@@ -1,7 +1,7 @@
 <template>
   <a-spin :spinning="loading">
     <a-form :form="form" layout="vertical" class="form">
-      <a-form-item class="form__item" :label="$t('label.appmanager.appname')">
+      <a-form-item class="form__item" :label="$t('label.appStore.appName')">
         <a-input
           :placeholder="placeholder.name"
           v-decorator="[
@@ -11,7 +11,15 @@
             }]"
         />
       </a-form-item>
-      <a-form-item class="form__item" :label="$t('label.appmanager.icon')">
+      <a-form-item class="form__item" :label="$t('label.appStore.appDescription')">
+        <a-textarea
+          :placeholder="placeholder.description"
+          v-decorator="[
+            'description']"
+          autoSize
+        />
+      </a-form-item>
+      <a-form-item class="form__item" :label="$t('label.appStore.appIcon')">
         <a-select
           v-decorator="['icon', {
             rules: [{ required: true, message: `${$t('label.required')}` }] }
@@ -25,7 +33,21 @@
           </a-select-option>
         </a-select>
       </a-form-item>
-
+      <a-form-item class="form__item" :label="$t('label.appStore.runScript')">
+        <a-textarea
+          :placeholder="placeholder.runScript"
+          v-decorator="['runScript', {rules: [{ required: true, message: `${$t('label.required')}` }] }]"
+          autoSize
+        />
+      </a-form-item>
+      <a-form-item class="form__item" :label="$t('label.appStore.remark')">
+        <a-textarea
+          :placeholder="placeholder.remark"
+          v-decorator="[
+            'remark']"
+          autoSize
+        />
+      </a-form-item>
       <a-divider></a-divider>
 
       <div class="actions">
@@ -54,6 +76,7 @@ export default {
       icons: icons,
       placeholder: {
         name: null,
+        description: null,
         icon: null
       }
     }

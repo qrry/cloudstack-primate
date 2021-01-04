@@ -3292,6 +3292,11 @@
 "user.login": "Login",
 "user.logout": "Logout",
 
+"label.appStore.appName":"\u5E94\u7528\u540D\u79F0",
+"label.appStore.appDescription":"\u5E94\u7528\u63CF\u8FF0",
+"label.appStore.appIcon":"\u5E94\u7528\u56FE\u6807",
+"label.appStore.runScript":"\u9ED8\u8BA4\u6267\u884C\u811A\u672C",
+"label.appStore.remark":"\u5907\u6CE8",
 
 "label.appmanager.appname":"\u5E94\u7528\u540D\u79F0",
 "label.appmanager.icon":"\u5E94\u7528 Icon",
