@@ -34,10 +34,13 @@
     <div v-for="item in Object.keys(resource)" :key="item.id">
       <chart-card :loading="loading" v-if="item !== 'id'">
         <div class="chart-card-inner">
-          <a-col :md="6">{{ item }}</a-col>
+          <a-col :md="6">{{ $t('label.appStore.detail.' + String(item).toLowerCase()) }}</a-col>
           <a-col :md="18">
-            <span v-if="item !== 'icon'">{{ resource[item] }}</span>
-            <span v-else><a-icon :type="resource[item]"/></span>
+            <span v-if="item === 'icon'"><a-icon :type="resource[item]"/></span>
+            <span v-else-if="item === 'created'">{{ resource[item] | formatTime }}</span>
+            <span v-else-if="item === 'last_updated'">{{ resource[item] | formatTime }}</span>
+            <span v-else-if="item === 'state'">{{ resource[item]===0?'不可用':'可用' }}</span>
+            <span v-else>{{ resource[item] }}</span>
           </a-col>
         </div>
       </chart-card>
@@ -68,6 +71,7 @@ import { api } from '@api'
 import Breadcrumb from '@/components/widgets/Breadcrumb'
 import ChartCard from '@/components/widgets/ChartCard'
 import ActionButton from '@/components/view/ActionButton'
+import moment from 'moment'
 
 export default {
   name: 'AppStoreDetail',
@@ -91,6 +95,12 @@ export default {
       showFormAction: false,
       currentAction: {},
       actionLoading: false
+    }
+  },
+  filters: {
+  // 格式化日期时间
+    formatTime: function (value) {
+      return moment(value).format('YYYY-MM-DD HH:mm:ss')
     }
   },
   watch: {
