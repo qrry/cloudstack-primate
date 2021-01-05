@@ -102,7 +102,7 @@ export default {
       domainError: false,
       params: [],
       placeholder: {
-        name: null,
+        name: '应用描述说明',
         gateway: null,
         netmask: null,
         startip: null,
@@ -150,7 +150,7 @@ export default {
         this.instancesList = response.listvirtualmachinesmetricsresponse.virtualmachine || []
         this.instanceId = this.values.instanceId || this.instancesList[0].id
         this.params = this.$store.getters.apis.createPod.params
-        Object.keys(this.placeholder).forEach(item => { this.returnPlaceholder(item) })
+        // Object.keys(this.placeholder).forEach(item => { this.returnPlaceholder(item) })
       }).catch(error => {
         this.$notifyError(error)
       }).finally(() => {
