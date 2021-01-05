@@ -38,6 +38,7 @@ export default {
     name: 'resources',
     component: () => import('@/views/infra/Resources.vue')
   }],
+  hideSearchBox: true,
   actions: [
     {
       api: 'createAppManage',

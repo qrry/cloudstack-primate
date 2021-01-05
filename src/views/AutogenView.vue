@@ -47,7 +47,7 @@
         </a-col>
         <a-col
           :span="device === 'mobile' ? 24 : 12"
-          :style="device === 'mobile' ? { float: 'right', 'margin-top': '12px', 'margin-bottom': '-6px', display: 'table' } : { float: 'right', display: 'table', 'margin-bottom': '-6px' }" >
+          :style="device === 'mobile' ? { float: 'right', 'margin-top': '12px', 'margin-bottom': '-6px', display: 'table' } : { float: 'right', display: 'table', 'margin-bottom': '-6px', 'text-align': 'right' }" >
           <slot name="action" v-if="dataView && $route.path.startsWith('/publicip')"></slot>
           <action-button
             v-else
@@ -59,7 +59,7 @@
             :resource="resource"
             @exec-action="(action) => execAction(action, action.groupAction && !dataView)"/>
           <search-view
-            v-if="!dataView"
+            v-if="!dataView && !hideSearch"
             :searchFilters="searchFilters"
             :searchParams="searchParams"
             :apiName="apiName"/>
@@ -371,6 +371,7 @@ export default {
       showAction: false,
       dataView: false,
       projectView: false,
+      hideSearch: false,
       selectedFilter: '',
       filters: [],
       searchFilters: [],
@@ -527,6 +528,9 @@ export default {
 
       if (this.$route && this.$route.meta && this.$route.meta.permission) {
         this.apiName = this.$route.meta.permission[0]
+        if (this.apiName === 'listAppManage') {
+          this.hideSearch = true
+        }
         if (this.$route.meta.columns) {
           const columns = this.$route.meta.columns
           if (columns && typeof columns === 'function') {
