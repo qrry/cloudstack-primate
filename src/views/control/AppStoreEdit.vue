@@ -1,8 +1,9 @@
 <template>
   <a-spin :spinning="loading">
     <a-form :form="form" layout="vertical" class="form">
-      <a-form-item class="form__item" :label="$t('label.appmanager.appname')">
+      <a-form-item class="form__item" :label="$t('label.appStore.appName')">
         <a-input
+          disabled="true"
           :placeholder="placeholder.name"
           v-decorator="[
             'name',
@@ -13,7 +14,17 @@
           ]"
         />
       </a-form-item>
-      <a-form-item class="form__item" :label="$t('label.appmanager.icon')">
+      <a-form-item class="form__item" :label="$t('label.appStore.appDescription')">
+        <a-textarea
+          :placeholder="placeholder.description"
+          v-decorator="[
+            'description',{
+              initialValue: resource.description
+            }]"
+          autoSize
+        />
+      </a-form-item>
+      <a-form-item class="form__item" :label="$t('label.appStore.appIcon')">
         <a-select
           v-decorator="[
             'icon',
@@ -29,7 +40,25 @@
           </a-select-option>
         </a-select>
       </a-form-item>
-
+      <a-form-item class="form__item" :label="$t('label.appStore.runScript')">
+        <a-textarea
+          :placeholder="placeholder.runScript"
+          v-decorator="['runScript', {
+            initialValue: resource.run_script,
+            rules: [{ required: true, message: `${$t('label.required')}` }] }]"
+          autoSize
+        />
+      </a-form-item>
+      <a-form-item class="form__item" :label="$t('label.appStore.remark')">
+        <a-textarea
+          :placeholder="placeholder.remark"
+          v-decorator="[
+            'remark',{
+              initialValue: resource.remark,
+            }]"
+          autoSize
+        />
+      </a-form-item>
       <a-divider></a-divider>
 
       <div class="actions">
@@ -42,13 +71,11 @@
 
 <script>
 import { api } from '@/api'
-import DedicateDomain from '../../components/view/DedicateDomain'
 import icons from './icons'
 
 export default {
   name: 'AppStoreEdit',
   components: {
-    DedicateDomain
   },
   inject: ['parentFetchData'],
   data () {
@@ -112,7 +139,10 @@ export default {
         api('updateAppStore', {
           id: this.$route.params.id,
           name: values.name,
-          icon: values.icon
+          description: values.description,
+          icon: values.icon,
+          run_script: values.runScript,
+          remark: values.remark
         })
           .then(response => {
             this.parentFetchData()
