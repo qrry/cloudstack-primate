@@ -42,7 +42,7 @@ export default {
     {
       api: 'createAppManage',
       icon: 'plus',
-      label: '添加应用',
+      label: '为实例添加应用',
       docHelp: 'installguide/configuration.html#adding-a-pod',
       listView: true,
       popup: true,
