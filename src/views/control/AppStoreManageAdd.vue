@@ -3,6 +3,7 @@
     <a-form :form="form" layout="vertical" :class="values.id ? 'form_update' : 'form'">
       <a-form-item class="form__item" :label="$t('label.appmanager.appname')">
         <a-select
+          :disabled="Boolean(values.id)"
           v-decorator="['appid', {
             initialValue: this.appId,
             rules: [{ required: true, message: `${$t('label.required')}` }] }
@@ -17,7 +18,7 @@
       </a-form-item>
 
       <a-form-item class="form__item" :label="$t('label.appmanager.appdescription')">
-        <a-input
+        <a-textarea
           :placeholder="placeholder.name"
           v-decorator="[
             'name',
@@ -25,11 +26,13 @@
               initialValue: this.name,
               rules: [{ required: true, message: `${$t('label.required')}` }]
             }]"
+          autosize
         />
       </a-form-item>
 
       <a-form-item class="form__item" :label="$t('label.appmanager.instance')">
         <a-select
+          :disabled="Boolean(values.id)"
           v-decorator="['instanceid', {
             initialValue: this.instanceId,
             rules: [{ required: true, message: `${$t('label.required')}` }] }
@@ -43,7 +46,7 @@
         </a-select>
       </a-form-item>
 
-      <a-form-item class="form__item" :label="$t('label.appmanager.appstatus')">
+      <a-form-item class="form__item" :label="$t('label.appmanager.appstatus')" v-if="!values.id">
         <a-select
           v-decorator="['appStatusid', {
             initialValue: this.appStatusId,
