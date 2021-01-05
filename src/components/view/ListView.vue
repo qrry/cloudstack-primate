@@ -110,8 +110,8 @@
         </span>
         <span v-else>{{ text }}</span>
       </span>
-      <template slot="state" slot-scope="text">
-        <status :text="text ? text : ''" displayText />
+      <template slot="state" slot-scope="text, record">
+        <status :text="text ? text : record.state ? '已安装' : '未安装'" displayText />
       </template>
       <template slot="allocationstate" slot-scope="text">
         <status :text="text ? text : ''" displayText />
@@ -212,6 +212,9 @@
         {{ $toLocaleDate(text) }}
       </span>
       <span slot="sent" slot-scope="text">
+        {{ $toLocaleDate(text) }}
+      </span>
+      <span slot="lastupdated" slot-scope="text">
         {{ $toLocaleDate(text) }}
       </span>
       <div slot="order" slot-scope="text, record" class="shift-btns">

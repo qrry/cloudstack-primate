@@ -1,7 +1,6 @@
 <template>
   <a-spin :spinning="loading">
-    <a-form :form="form" layout="vertical" class="form">
-
+    <a-form :form="form" layout="vertical" :class="values.id ? 'form_update' : 'form'">
       <a-form-item class="form__item" :label="$t('label.appmanager.appname')">
         <a-select
           v-decorator="['appid', {
@@ -202,7 +201,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .form {
+  .form, .form_update {
 
     &__label {
       margin-bottom: 5px;
@@ -211,9 +210,11 @@ export default {
     &__item {
       margin-bottom: 20px;
     }
+  }
 
+  .form {
     .ant-select, .ant-input {
-      width: 100%;
+      width: 400px;
     }
   }
 

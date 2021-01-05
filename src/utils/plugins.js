@@ -151,19 +151,33 @@ export const notifierPlugin = {
 export const toLocaleDatePlugin = {
   install (Vue) {
     Vue.prototype.$toLocaleDate = function (date) {
-      var timezoneOffset = this.$store.getters.timezoneoffset
-      if (this.$store.getters.usebrowsertimezone) {
-        // Since GMT+530 is returned as -330 (mins to GMT)
-        timezoneOffset = new Date().getTimezoneOffset() / -60
+      // var timezoneOffset = this.$store.getters.timezoneoffset
+      // if (this.$store.getters.usebrowsertimezone) {
+      //   // Since GMT+530 is returned as -330 (mins to GMT)
+      //   timezoneOffset = new Date().getTimezoneOffset() / -60
+      // }
+      // var milliseconds = Date.parse(date)
+      // // e.g. "Tue, 08 Jun 2010 19:13:49 GMT", "Tue, 25 May 2010 12:07:01 UTC"
+      // var dateWithOffset = new Date(milliseconds + (timezoneOffset * 60 * 60 * 1000)).toUTCString()
+      // // e.g. "08 Jun 2010 19:13:49 GMT", "25 May 2010 12:07:01 UTC"
+      // dateWithOffset = dateWithOffset.substring(dateWithOffset.indexOf(', ') + 2)
+      // // e.g. "08 Jun 2010 19:13:49", "25 May 2010 12:10:16"
+      // dateWithOffset = dateWithOffset.substring(0, dateWithOffset.length - 4)
+      // return dateWithOffset
+      const fotmat = (num, length) => {
+        if (String(num).length < length) {
+          return new Array(length - String(num).length).fill('0') + num
+        }
+        return num
       }
-      var milliseconds = Date.parse(date)
-      // e.g. "Tue, 08 Jun 2010 19:13:49 GMT", "Tue, 25 May 2010 12:07:01 UTC"
-      var dateWithOffset = new Date(milliseconds + (timezoneOffset * 60 * 60 * 1000)).toUTCString()
-      // e.g. "08 Jun 2010 19:13:49 GMT", "25 May 2010 12:07:01 UTC"
-      dateWithOffset = dateWithOffset.substring(dateWithOffset.indexOf(', ') + 2)
-      // e.g. "08 Jun 2010 19:13:49", "25 May 2010 12:10:16"
-      dateWithOffset = dateWithOffset.substring(0, dateWithOffset.length - 4)
-      return dateWithOffset
+      const d = new Date(date)
+      const year = fotmat(d.getFullYear(), 4)
+      const month = fotmat(d.getMonth() + 1, 2)
+      const day = fotmat(d.getDate(), 2)
+      const hour = fotmat(d.getHours(), 2)
+      const minutes = fotmat(d.getMinutes(), 2)
+      const seconds = fotmat(d.getSeconds(), 2)
+      return `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`
     }
   }
 }
