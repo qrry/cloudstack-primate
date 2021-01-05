@@ -291,11 +291,18 @@
           shape="circle"
           icon="edit"
           @click="updateRecord(record)" />
-        <a-button
-          shape="circle"
-          icon="delete"
-          style="margin-left: 5px"
-          @click="deleteRecord(record)" />
+        <a-popconfirm
+            :title="`删除应用?`"
+            @confirm="deleteRecord(record)"
+            :okText="$t('label.yes')"
+            :cancelText="$t('label.no')"
+            placement="left"
+          >
+            <a-button
+              shape="circle"
+              icon="delete"
+              style="margin-left: 5px" />
+        </a-popconfirm>
       </template>
       <template slot="tariffActions" slot-scope="text, record">
         <a-button
