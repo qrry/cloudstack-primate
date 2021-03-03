@@ -3298,6 +3298,8 @@
 "label.runscript": "\u8fd0\u884c\u811a\u672c",
 "label.owner": "\u521b\u5efa\u4eba",
 "label.lastupdated": "\u66f4\u65b0\u65f6\u95f4",
+"label.last_updated": "\u66f4\u65b0\u65f6\u95f4",
+"label.app_store_name": "\u5e94\u7528\u540d\u79f0",
 "label.appStore.appName":"\u5E94\u7528\u540D\u79F0",
 "label.appStore.appDescription":"\u5E94\u7528\u63CF\u8FF0",
 "label.appStore.appIcon":"\u5E94\u7528\u56FE\u6807",

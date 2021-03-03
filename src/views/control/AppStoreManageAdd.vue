@@ -46,21 +46,6 @@
         </a-select>
       </a-form-item>
 
-      <a-form-item class="form__item" :label="$t('label.appmanager.appstatus')" v-if="!values.id">
-        <a-select
-          v-decorator="['appStatusid', {
-            initialValue: this.appStatusId,
-            rules: [{ required: true, message: `${$t('label.required')}` }] }
-          ]">
-          <a-select-option
-            v-for="appStatus in appStatusList"
-            :value="appStatus.id"
-            :key="appStatus.id">
-            {{ appStatus.name }}
-          </a-select-option>
-        </a-select>
-      </a-form-item>
-
       <a-divider></a-divider>
 
       <div class="actions">

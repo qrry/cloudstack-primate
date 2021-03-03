@@ -20,7 +20,7 @@ export default {
   title: '应用管理',
   icon: 'appstore',
   permission: ['listAppManage'],
-  columns: ['state', 'name', 'description', 'runScript', 'owner', 'created', 'lastUpdated', 'operation'],
+  columns: ['state', 'app_store_name', 'description', 'runScript', 'owner', 'created', 'last_updated', 'operation'],
   details: ['应用状态', '应用名称', '应用管理描述', '运行脚本', '创建人', '创建时间', '更新时间', '操作'],
   related: [{
     name: 'cluster',
