@@ -286,6 +286,7 @@
           <a-icon type="close-circle" theme="twoTone" twoToneColor="#f5222d" />
         </a-button>
       </template>
+      <!-- 应用管理专门用的 -->
       <template slot="operation" slot-scope="text, record">
         <a-button
           shape="circle"
