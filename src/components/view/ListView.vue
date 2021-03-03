@@ -303,6 +303,17 @@
             icon="delete"
             style="margin-left: 5px" />
         </a-popconfirm>
+        <a-popover trigger="click" placement="bottomRight">
+          <a slot="content">
+            <div style="line-height: 2" v-if="record.state === 0">安装</div>
+            <div style="line-height: 2" v-if="record.state === 1">卸载</div>
+            <div style="line-height: 2">重启</div>
+          </a>
+          <a-button
+            shape="circle"
+            icon="more"
+            style="margin-left: 5px"/>
+        </a-popover>
       </template>
       <template slot="tariffActions" slot-scope="text, record">
         <a-button
