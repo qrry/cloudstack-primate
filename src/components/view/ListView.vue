@@ -294,7 +294,7 @@
           @click="updateRecord(record)" />
         <a-popconfirm
           :title="`删除应用?`"
-          @confirm="deleteRecord(record)"
+          @confirm="manageApp(record, 'delete')"
           :okText="$t('label.yes')"
           :cancelText="$t('label.no')"
           placement="left"
@@ -306,9 +306,9 @@
         </a-popconfirm>
         <a-popover trigger="click" placement="bottomRight">
           <a slot="content">
-            <div style="line-height: 2" v-if="record.state === 0">安装</div>
-            <div style="line-height: 2" v-if="record.state === 1">卸载</div>
-            <div style="line-height: 2">重启</div>
+            <div style="line-height: 2" v-if="record.state === 0" @click="manageApp(record, 'install')">安装</div>
+            <div style="line-height: 2" v-if="record.state === 1" @click="manageApp(record, 'uninstall')">卸载</div>
+            <div style="line-height: 2" v-if="record.state === 1" @click="manageApp(record, 'restore')">重启</div>
           </a>
           <a-button
             shape="circle"
@@ -523,18 +523,18 @@ export default {
       this.showFormAction = true
       this.currentEditRecord = record
     },
-    deleteRecord (record) {
-      const deleteRecodeAction = this.actions.find(action => action.key === 'delete')
-      if (!deleteRecodeAction || !deleteRecodeAction.api) {
+    manageApp (record, op) {
+      const actionConfig = this.actions.find(action => action.key === op)
+      if (!actionConfig || !actionConfig.api) {
         return
       }
       const parmas = {}
-      if (deleteRecodeAction.args) {
-        deleteRecodeAction.args.map(arg => {
+      if (actionConfig.args) {
+        actionConfig.args.map(arg => {
           parmas[arg] = record[arg]
         })
       }
-      api(deleteRecodeAction.api, parmas).then(() => {
+      api(actionConfig.api, parmas).then(() => {
         this.parentFetchData()
       })
     },

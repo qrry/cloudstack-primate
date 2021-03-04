@@ -109,6 +109,24 @@ export default {
       message: 'message.action.delete.pod',
       dataView: true,
       args: ['id']
+    },
+    {
+      key: 'install',
+      api: 'installAppManage',
+      dataView: true,
+      args: ['id']
+    },
+    {
+      key: 'uninstall',
+      api: 'uninstallAppManage',
+      dataView: true,
+      args: ['id']
+    },
+    {
+      key: 'restore',
+      api: 'resetAppMessage',
+      dataView: true,
+      args: ['id']
     }
   ]
 }
