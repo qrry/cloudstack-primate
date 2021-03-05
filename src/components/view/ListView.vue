@@ -309,6 +309,9 @@
             <div style="line-height: 2" v-if="record.state === 0" @click="manageApp(record, 'install')">安装</div>
             <div style="line-height: 2" v-if="record.state === 1" @click="manageApp(record, 'uninstall')">卸载</div>
             <div style="line-height: 2" v-if="record.state === 1" @click="manageApp(record, 'restore')">重启</div>
+            <a :href="'/client/console?cmd=access&vm=' + record.instance_id" target="_blank"  style="display: block; line-height: 2">
+              控制台
+            </a>
           </a>
           <a-button
             shape="circle"
