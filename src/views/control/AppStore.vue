@@ -44,7 +44,7 @@
                   <h4>{{ item.description==null?"-":(item.description.length>15?item.description.substring(0,15)+"...":item.description) }}</h4>
                 </router-link>
                 <p>
-                  <router-link :to="{ name: 'appManager' }">
+                  <router-link :to="{ name: 'appManager', query: { instance: item.name } }">
                     <span style="color:#2f54eb">实例数：{{ item.instance_count }}</span>
                   </router-link>
                 </p>

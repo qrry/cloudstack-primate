@@ -613,7 +613,11 @@ export default {
           objectName = key
           break
         }
-        this.items = json[responseName][objectName]
+        if (this.apiName === 'listAppManage' && this.$route.query.instance) {
+          this.items = (json[responseName][objectName] || []).filter(item => item.app_store_name === this.$route.query.instance)
+        } else {
+          this.items = json[responseName][objectName]
+        }
         if (!this.items || this.items.length === 0) {
           this.items = []
         }
