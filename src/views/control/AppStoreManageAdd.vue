@@ -30,6 +30,19 @@
         />
       </a-form-item>
 
+      <a-form-item class="form__item" :label="$t('label.appmanager.runscript')">
+        <a-textarea
+          :placeholder="placeholder.runscript"
+          v-decorator="[
+            'runscript',
+            {
+              initialValue: this.runscript,
+              rules: [{ required: true, message: `${$t('label.required')}` }]
+            }]"
+          autosize
+        />
+      </a-form-item>
+
       <a-form-item class="form__item" :label="$t('label.appmanager.instance')">
         <a-select
           :disabled="Boolean(values.id)"
@@ -44,6 +57,54 @@
             {{ instance.name }}
           </a-select-option>
         </a-select>
+      </a-form-item>
+
+      <a-form-item class="form__item" :label="$t('label.appmanager.ip')">
+        <a-input
+          :placeholder="placeholder.ip"
+          v-decorator="[
+            'ip',
+            {
+              initialValue: this.ip,
+              rules: [{ required: true, message: `${$t('label.required')}` }]
+            }]"
+        />
+      </a-form-item>
+
+      <a-form-item class="form__item" :label="$t('label.appmanager.port')">
+        <a-input
+          :placeholder="placeholder.port"
+          v-decorator="[
+            'port',
+            {
+              initialValue: this.port,
+              rules: [{ required: true, message: `${$t('label.required')}` }]
+            }]"
+        />
+      </a-form-item>
+
+      <a-form-item class="form__item" :label="$t('label.appmanager.login_user')">
+        <a-input
+          :placeholder="placeholder.login_user"
+          v-decorator="[
+            'login_user',
+            {
+              initialValue: this.login_user,
+              rules: [{ required: true, message: `${$t('label.required')}` }]
+            }]"
+        />
+      </a-form-item>
+
+      <a-form-item class="form__item" :label="$t('label.appmanager.login_password')">
+        <a-input
+          :placeholder="placeholder.login_password"
+          v-decorator="[
+            'login_password',
+            {
+              initialValue: this.login_password,
+              rules: [{ required: true, message: `${$t('label.required')}` }]
+            }]"
+        />
       </a-form-item>
 
       <a-divider></a-divider>
@@ -80,6 +141,12 @@ export default {
       instancesList: [],
       name: '',
       instanceId: null,
+      instanceName: null,
+      runscript: null,
+      ip: null,
+      port: null,
+      login_user: null,
+      login_password: null,
       appsList: [],
       appId: null,
       appStatusList: [],
@@ -90,11 +157,12 @@ export default {
       domainError: false,
       params: [],
       placeholder: {
-        name: '应用描述说明',
-        gateway: null,
-        netmask: null,
-        startip: null,
-        endip: null
+        name: '请输入应用描述说明',
+        runscript: '请输入运行脚本路径',
+        ip: '请输入实例维护IP',
+        port: '请输入实例维护端口',
+        login_user: '请输入登录用户',
+        login_password: '请输入登录密码'
       }
     }
   },
@@ -120,6 +188,11 @@ export default {
           this.appsList = json.listAppStoreResponse.appStore
           this.appId = this.values.appStoreId || json.listAppStoreResponse.appStore[0].id
           this.name = this.values.description
+          this.runscript = this.values.run_script
+          this.ip = this.values.ip
+          this.port = this.values.port
+          this.login_user = this.values.login_user
+          this.login_password = this.values.login_password
         }
       })
     },
@@ -156,10 +229,21 @@ export default {
         if (err) return
 
         this.loading = true
+        let obj = {}
+        obj = this.instancesList.find((item) => {
+          return item.id === values.instanceid
+        })
+
         const apiName = this.values.id ? 'updateAppManage' : 'createAppManage'
         api(apiName, {
           app_store_id: values.appid,
           instance_id: values.instanceid,
+          instance_name: obj.name,
+          run_script: values.runscript,
+          ip: values.ip,
+          port: values.port,
+          login_user: values.login_user,
+          login_password: values.login_password,
           description: values.name,
           state: values.appStatusid,
           ...this.values.id && {
