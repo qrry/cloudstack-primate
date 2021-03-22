@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <a-spin :spinning="isSpinning">
     <a-table
       size="middle"
       :loading="loading"
@@ -349,7 +349,7 @@
         </a-modal>
       </keep-alive>
     </div>
-  </div>
+  </a-spin>
 </template>
 
 <script>
@@ -390,6 +390,7 @@ export default {
   inject: ['parentFetchData', 'parentToggleLoading', 'parentEditTariffAction'],
   data () {
     return {
+      isSpinning: false,
       selectedRowKeys: [],
       editableValueKey: null,
       editableValue: '',
@@ -537,8 +538,18 @@ export default {
           parmas[arg] = record[arg]
         })
       }
+      this.isSpinning = true
       api(actionConfig.api, parmas).then(() => {
         this.parentFetchData()
+        this.$notification.success({
+          message: '操作成功'
+        })
+      }).catch(() => {
+        this.$notification.error({
+          message: '操作失败，请稍后重试！'
+        })
+      }).finally(() => {
+        this.isSpinning = false
       })
     },
     getUpdateApi () {
